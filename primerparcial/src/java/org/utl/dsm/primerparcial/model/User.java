@@ -86,11 +86,8 @@ public class User {
     }
     
     public void encodeToken() {
-        String firstPart = this.username;
-        String secondPart = "DSM501";
         Date date = new Date();
-        String thirdPart = date.toString();
-        String token = firstPart + "-" + secondPart + "-" + thirdPart;
+        String token = this.username + "-" + "DSM501" + "-" + date.toString();
         this.token = DigestUtils.sha512Hex(token);
     }
 }

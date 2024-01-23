@@ -3,15 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/alejandro/Developer/NetBeansProjects/primerparcial/web/script.js</file>
+            <file>file:/C:/Users/alejandro/Developer/NetBeansProjects/primerparcial/src/java/org/utl/dsm/primerparcial/service/AuthService.java</file>
+            <file>file:/C:/Users/alejandro/Developer/NetBeansProjects/primerparcial/web/index.html</file>
             <file>file:/C:/Users/alejandro/Developer/NetBeansProjects/primerparcial/src/java/org/utl/dsm/primerparcial/util/MySQLConnection.java</file>
             <file>file:/C:/Users/alejandro/Developer/NetBeansProjects/primerparcial/src/java/org/utl/dsm/primerparcial/model/User.java</file>
-            <file>file:/C:/Users/alejandro/Developer/NetBeansProjects/primerparcial/src/java/org/utl/dsm/primerparcial/service/AuthService.java</file>
-            <file>file:/C:/Users/alejandro/Developer/NetBeansProjects/primerparcial/src/java/org/utl/dsm/primerparcial/test/UserTest.java</file>
-            <file>file:/C:/Users/alejandro/Developer/NetBeansProjects/primerparcial/src/java/org/utl/dsm/primerparcial/repository/UserRepository.java</file>
-            <file>file:/C:/Users/alejandro/Developer/NetBeansProjects/primerparcial/web/index.html</file>
             <file>file:/C:/Users/alejandro/Developer/NetBeansProjects/primerparcial/src/java/org/utl/dsm/primerparcial/service/UserService.java</file>
+            <file>file:/C:/Users/alejandro/Developer/NetBeansProjects/primerparcial/src/java/org/utl/dsm/primerparcial/repository/UserRepository.java</file>
+            <file>file:/C:/Users/alejandro/Developer/NetBeansProjects/primerparcial/web/script.js</file>
             <file>file:/C:/Users/alejandro/Developer/NetBeansProjects/primerparcial/src/java/org/utl/dsm/primerparcial/controller/UserController.java</file>
+            <file>file:/C:/Users/alejandro/Developer/NetBeansProjects/primerparcial/web/WEB-INF/web.xml</file>
+            <file>file:/C:/Users/alejandro/Developer/NetBeansProjects/primerparcial/src/java/org/utl/dsm/primerparcial/test/UserTest.java</file>
         </group>
     </open-files>
 </project-private>

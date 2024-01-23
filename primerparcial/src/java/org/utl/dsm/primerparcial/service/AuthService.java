@@ -23,11 +23,18 @@ public class AuthService {
     }
 
     public User login(User user) throws SQLException {
-        try (Connection connection = MySQLConnection.getConnection();) {
+        try (Connection connection = MySQLConnection.getConnection()) {
             userRepository.setConnection(connection);
             user.encodePassword();
             user.encodeToken();
             return userRepository.login(user);
+        }
+    }
+
+    public User logout(User user) throws SQLException {
+        try (Connection connection = MySQLConnection.getConnection()) {
+            userRepository.setConnection(connection);
+            return userRepository.logout(user);
         }
     }
 }

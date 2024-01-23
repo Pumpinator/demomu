@@ -57,7 +57,7 @@ public class UserRepository {
             return user;
         }
     }
-    
+
     public User login(User user) throws SQLException {
         String query = "SELECT u.id FROM users u WHERE u.username = ? AND u.password = ?";
         System.out.println(query);
@@ -80,6 +80,16 @@ public class UserRepository {
                 preparedStatement.setInt(2, user.getId());
                 preparedStatement.executeUpdate();
             }
+        }
+        return user;
+    }
+
+    public User logout(User user) throws SQLException {
+        String query = "UPDATE users u SET u.token = '' WHERE u.id = ?";
+        System.out.println(query);
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, user.getId());
+            preparedStatement.executeUpdate();
         }
         return user;
     }
