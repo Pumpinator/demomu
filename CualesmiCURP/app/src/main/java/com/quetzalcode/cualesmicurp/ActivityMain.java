@@ -116,10 +116,9 @@ public class ActivityMain extends AppCompatActivity {
             public void onResponse(String response) {
                 JsonObject jsonObject = JsonParser.parseString(response)
                         .getAsJsonObject();
-                JsonObject curp = jsonObject.getAsJsonObject("conversion_rates");
-                response = curp.get("curp").getAsString();
-                lblResultado.setText(response);
-                Toast.makeText(ActivityMain.this, "CURP generado.", Toast.LENGTH_LONG)
+                CURP resultado = gson.fromJson(jsonObject, CURP.class);
+                lblResultado.setText(resultado.getCurp());
+                Toast.makeText(ActivityMain.this, "CURP generada.", Toast.LENGTH_LONG)
                         .show();
             }
         };
@@ -129,27 +128,12 @@ public class ActivityMain extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ActivityMain.this);
                 alertDialogBuilder.setTitle("ERROR");
-                alertDialogBuilder.setMessage("No se puede generar la CURP :(\n" + error.toString());
+                alertDialogBuilder.setMessage("No podemos generar la CURP :(\n" + error.toString());
                 alertDialogBuilder.create()
                         .show();
             }
         };
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, CURPUtil.URL,
-                response -> {
-                    JsonObject jsonObject = JsonParser.parseString(response)
-                            .getAsJsonObject();
-                    CURP resultado = gson.fromJson(jsonObject, CURP.class);
-                    lblResultado.setText(resultado.getCurp());
-                    Toast.makeText(ActivityMain.this, "CURP generada.", Toast.LENGTH_LONG)
-                            .show();
-                },
-                error -> {
-                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ActivityMain.this);
-                    alertDialogBuilder.setTitle("ERROR");
-                    alertDialogBuilder.setMessage("No podemos generar la CURP :(\n" + error.toString());
-                    alertDialogBuilder.create()
-                            .show();
-                }) {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, CURPUtil.URL, responseListener, reponseErrorListener) {
             @Override
             public String getBodyContentType() {
                 return "application/json";
@@ -165,41 +149,47 @@ public class ActivityMain extends AppCompatActivity {
                 }
             }
         };
+
         RequestQueue requestQueue = Volley.newRequestQueue(getBaseContext());
         requestQueue.add(stringRequest);
     }
 
     private boolean validarDatos() {
+        boolean sonValidos;
         if (txtNombre.getText().toString().isEmpty()) {
             lblNombre.setTextColor(Color.RED);
-            return false;
+            sonValidos = false;
         } else {
             lblNombre.setTextColor(Color.BLACK);
+            sonValidos = true;
         }
 
         if (txtPrimerApellido.getText().toString().isEmpty()) {
             lblPrimerApellido.setTextColor(Color.RED);
-            return false;
+            sonValidos = false;
         } else {
             lblPrimerApellido.setTextColor(Color.BLACK);
+            sonValidos = true;
         }
 
         if (txtSegundoApellido.getText().toString().isEmpty()) {
             lblSegundoApellido.setTextColor(Color.RED);
-            return false;
+            sonValidos = false;
         } else {
             lblSegundoApellido.setTextColor(Color.BLACK);
+            sonValidos = true;
         }
 
-        if(txtAñoDeNacimiento.getText().toString().isEmpty()
+        if (txtAñoDeNacimiento.getText().toString().isEmpty()
                 || txtAñoDeNacimiento.getText().toString().length() < 4) {
             lblAñoDeNacimiento.setTextColor(Color.RED);
-            return false;
+            sonValidos = false;
         } else {
             lblAñoDeNacimiento.setTextColor(Color.BLACK);
+            sonValidos = true;
         }
 
-        return true;
+        return sonValidos;
     }
 
     public void limpiar() {

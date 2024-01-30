@@ -23,7 +23,8 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="72dp"
+                android:gravity="center|center_horizontal"
                 android:text="Cuál es mi CURP?"
                 android:textAlignment="center"
                 android:textSize="34sp" />
@@ -191,11 +192,12 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:gravity="center"
                 android:orientation="horizontal">
 
                 <Button
                     android:id="@+id/btnGenerar"
-                    android:layout_width="320dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
                     android:backgroundTint="@color/design_default_color_secondary_variant"
@@ -204,7 +206,7 @@
 
                 <Button
                     android:id="@+id/btnLimpiar"
-                    android:layout_width="wrap_content"
+                    android:layout_width="64dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
                     app:icon="@android:drawable/ic_input_delete" />
@@ -214,7 +216,8 @@
             <TextView
                 android:id="@+id/lblResultado"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="72dp"
+                android:gravity="center|center_horizontal"
                 android:textAlignment="center"
                 android:textSize="34sp" />
 
