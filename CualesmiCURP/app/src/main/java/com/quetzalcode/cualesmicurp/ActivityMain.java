@@ -39,7 +39,6 @@ public class ActivityMain extends AppCompatActivity {
     private EditText txtPrimerApellido;
     private TextView lblPrimerApellido;
     private EditText txtSegundoApellido;
-    private TextView lblSegundoApellido;
     private Spinner spnDiaDeNacimiento;
     private Spinner spnMesDeNacimiento;
     private TextView lblAñoDeNacimiento;
@@ -60,18 +59,27 @@ public class ActivityMain extends AppCompatActivity {
     private void initialize() {
         lblNombre = findViewById(R.id.lblNombre);
         txtNombre = findViewById(R.id.txtNombre);
+
         txtPrimerApellido = findViewById(R.id.txtPrimerApellido);
         lblPrimerApellido = findViewById(R.id.lblPrimerApellido);
+
         txtSegundoApellido = findViewById(R.id.txtSegundoApellido);
-        lblSegundoApellido = findViewById(R.id.lblSegundoApellido);
+
         spnDiaDeNacimiento = findViewById(R.id.spnDiaDeNacimiento);
+
         spnMesDeNacimiento = findViewById(R.id.spnMesDeNacimiento);
+
         lblAñoDeNacimiento = findViewById(R.id.lblAñoDeNacimiento);
         txtAñoDeNacimiento = findViewById(R.id.txtAñoDeNacimiento);
+
         spnSexo = findViewById(R.id.spnSexo);
+
         spnEstado = findViewById(R.id.spnEstado);
+
         btnGenerar = findViewById(R.id.btnGenerar);
+
         btnLimpiar = findViewById(R.id.btnLimpiar);
+
         lblResultado = findViewById(R.id.lblResultado);
 
         spnDiaDeNacimiento.setAdapter(listar(CURPUtil.DIAS));
@@ -83,6 +91,7 @@ public class ActivityMain extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (validarDatos()) {
+                    // generar();
                     generarfp();
                 }
             }
@@ -133,11 +142,11 @@ public class ActivityMain extends AppCompatActivity {
                         .show();
             }
         };
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                                                        CURPUtil.URL,
-                                                        responseListener,
-                                                        reponseErrorListener)
-        {
+        StringRequest stringRequest = new StringRequest(
+                Request.Method.POST,
+                CURPUtil.URL,
+                responseListener,
+                reponseErrorListener) {
             @Override
             public String getBodyContentType() {
                 return "application/json";
@@ -190,22 +199,21 @@ public class ActivityMain extends AppCompatActivity {
                         .show();
             }
         };
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,
+        StringRequest stringRequest = new StringRequest(
+                Request.Method.POST,
                 CURPUtil.URL,
                 responseListener,
-                reponseErrorListener)
-        {
-            @Nullable
+                reponseErrorListener) {
+            @Override
+            public String getBodyContentType() {
+                return "application/x-www-form-urlencoded";
+            }
+
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("persona", gson.toJson(persona));
                 return params;
-            }
-
-            @Override
-            public String getBodyContentType() {
-                return "application/x-www-form-urlencoded";
             }
         };
 
@@ -228,14 +236,6 @@ public class ActivityMain extends AppCompatActivity {
             sonValidos = false;
         } else {
             lblPrimerApellido.setTextColor(Color.BLACK);
-            sonValidos = true;
-        }
-
-        if (txtSegundoApellido.getText().toString().isEmpty()) {
-            lblSegundoApellido.setTextColor(Color.RED);
-            sonValidos = false;
-        } else {
-            lblSegundoApellido.setTextColor(Color.BLACK);
             sonValidos = true;
         }
 
