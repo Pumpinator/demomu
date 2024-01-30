@@ -83,7 +83,7 @@ public class ActivityMain extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (validarDatos()) {
-                    generar();
+                    generarfp();
                 }
             }
         });
@@ -205,7 +205,7 @@ public class ActivityMain extends AppCompatActivity {
 
             @Override
             public String getBodyContentType() {
-                return "application/json";
+                return "application/x-www-form-urlencoded";
             }
         };
 

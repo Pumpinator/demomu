@@ -2,7 +2,7 @@ package com.quetzalcode.cualesmicurp.util;
 
 public class CURPUtil {
 
-    public static final String URL = "https://f517-2806-103e-2b-cc5-70-c6b4-c579-463a.ngrok-free.app/CualesmiCURP/generar";
+    public static final String URL = "https://48a7-201-163-190-4.ngrok-free.app/CualesmiCURP/generarfp";
 
     public static final String[] DIAS = {
             "01", "02", "03", "04", "05", "06", "07", "08", "09",
