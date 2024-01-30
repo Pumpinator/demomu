@@ -1,5 +1,6 @@
 package com.quetzalcode.cualesmicurp;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -24,10 +25,12 @@ import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.quetzalcode.cualesmicurp.modelo.CURP;
+import com.quetzalcode.cualesmicurp.modelo.Persona;
 import com.quetzalcode.cualesmicurp.util.CURPUtil;
 
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ActivityMain extends AppCompatActivity {
 
@@ -99,7 +102,7 @@ public class ActivityMain extends AppCompatActivity {
     }
 
     private void generar() {
-        CURP curp = new CURP(
+        Persona persona = new Persona(
                 txtNombre.getText().toString().trim(),
                 txtPrimerApellido.getText().toString().trim(),
                 txtSegundoApellido.getText().toString().trim(),
@@ -114,16 +117,13 @@ public class ActivityMain extends AppCompatActivity {
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                JsonObject jsonObject = JsonParser.parseString(response)
-                        .getAsJsonObject();
-                CURP resultado = gson.fromJson(jsonObject, CURP.class);
+                Persona resultado = gson.fromJson(response, Persona.class);
                 lblResultado.setText(resultado.getCurp());
                 Toast.makeText(ActivityMain.this, "CURP generada.", Toast.LENGTH_LONG)
                         .show();
             }
         };
         Response.ErrorListener reponseErrorListener = new Response.ErrorListener() {
-
             @Override
             public void onErrorResponse(VolleyError error) {
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ActivityMain.this);
@@ -133,7 +133,11 @@ public class ActivityMain extends AppCompatActivity {
                         .show();
             }
         };
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, CURPUtil.URL, responseListener, reponseErrorListener) {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                                                        CURPUtil.URL,
+                                                        responseListener,
+                                                        reponseErrorListener)
+        {
             @Override
             public String getBodyContentType() {
                 return "application/json";
@@ -142,11 +146,66 @@ public class ActivityMain extends AppCompatActivity {
             @Override
             public byte[] getBody() throws AuthFailureError {
                 try {
-                    return gson.toJson(curp).getBytes("utf-8");
+                    return gson.toJson(persona).getBytes("utf-8");
                 } catch (UnsupportedEncodingException e) {
                     Log.i("info", "Unsupported Encoding");
                     return null;
                 }
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getBaseContext());
+        requestQueue.add(stringRequest);
+    }
+
+    private void generarfp() {
+        Persona persona = new Persona(
+                txtNombre.getText().toString().trim(),
+                txtPrimerApellido.getText().toString().trim(),
+                txtSegundoApellido.getText().toString().trim(),
+                spnDiaDeNacimiento.getSelectedItemPosition() + 1,
+                spnMesDeNacimiento.getSelectedItemPosition() + 1,
+                Integer.valueOf(txtAñoDeNacimiento.getText().toString()),
+                spnSexo.getSelectedItem().toString(),
+                spnEstado.getSelectedItem().toString()
+        );
+
+        Gson gson = new Gson();
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Persona resultado = gson.fromJson(response, Persona.class);
+                lblResultado.setText(resultado.getCurp());
+                Toast.makeText(ActivityMain.this, "CURP generada.", Toast.LENGTH_LONG)
+                        .show();
+            }
+        };
+        Response.ErrorListener reponseErrorListener = new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ActivityMain.this);
+                alertDialogBuilder.setTitle("ERROR");
+                alertDialogBuilder.setMessage("No podemos generar la CURP :(\n" + error.toString());
+                alertDialogBuilder.create()
+                        .show();
+            }
+        };
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                CURPUtil.URL,
+                responseListener,
+                reponseErrorListener)
+        {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("persona", gson.toJson(persona));
+                return params;
+            }
+
+            @Override
+            public String getBodyContentType() {
+                return "application/json";
             }
         };
 

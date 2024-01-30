@@ -1,6 +1,6 @@
 package com.quetzalcode.cualesmicurp.modelo;
 
-public class CURP {
+public class Persona {
     private String nombre;
     private String primerApellido;
     private String segundoApellido;
@@ -11,9 +11,9 @@ public class CURP {
     private String estado;
     private String curp;
 
-    public CURP() {
+    public Persona() {
     }
-    public CURP(String nombre, String primerApellido, String segundoApellido, Integer diaDeNacimiento, Integer mesDeNacimiento, Integer añoDeNacimiento, String sexo, String estado) {
+    public Persona(String nombre, String primerApellido, String segundoApellido, Integer diaDeNacimiento, Integer mesDeNacimiento, Integer añoDeNacimiento, String sexo, String estado) {
         this.setNombre(nombre);
         this.setPrimerApellido(primerApellido);
         this.setSegundoApellido(segundoApellido);
